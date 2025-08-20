@@ -392,6 +392,34 @@ include('connection.php'); // Ensure DB connection is established
 </div>
 <!-- Service End -->
 
+<!-- Donors Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Donor Reviews</div>
+            <h1 class="display-6 mb-3">Trusted By Thousands Of People And Nonprofits</h1>
+        </div>
+
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+            <?php
+            $reviews = mysqli_query($link, "SELECT * FROM donor_reviews ORDER BY created_at DESC");
+            while ($row = mysqli_fetch_assoc($reviews)) {
+                $image = !empty($row['image']) ? 'uploads/' . $row['image'] : 'img/default.png';
+                ?>
+                <div class="testimonial-item text-center">
+                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="<?= $image ?>" style="width: 100px; height: 100px;">
+                    <div class="testimonial-text rounded text-center p-4">
+                        <p>“<?= htmlspecialchars($row['message']) ?>”</p>
+                        <h5 class="mb-1"><?= htmlspecialchars($row['name']) ?></h5>
+                        <span class="fst-italic"><?= htmlspecialchars($row['city']) ?> | LKR <?= number_format($row['amount_donated'], 2) ?> Donated</span>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<!-- Donors End -->
+
 <!-- Footer -->
 <?php include('footer.php'); ?>
 
